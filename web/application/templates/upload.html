@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Upload </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/mystyle.css">
+</head>
+
+<body>
+    <main>
+
+        <p class="text-center mt-5 mb-1">サンプル画像</p>
+        <input type="image" src="../static/images/sample_face.jpeg" alt="サンプル画像" id="sample_face" name="face" class="d-block mx-auto mb-2 face_size">
+        <p class="text-center mb-1">できるだけ正面を向いた顔写真をアップロードして下さい。</p>
+        <p class="text-center mb-5">画像ファイルの拡張子がjpegかjpgかpngのみが有効です。</p>
+        <div class="container page-header mt-5">
+            <div class="col-sm-4 mx-auto">
+                <form action="/result" method="post" name="face" enctype="multipart/form-data">
+                    <div class="d-block mx-auto mb-1 imagePreview"></div>
+                    <label>
+                    <span class="btn btn-primary mb-3">
+                        ファイルの選択<input type="file" id="uploadFile" name="face" style="display:none" onchange="selectFile()">
+                    </span>
+                    </label>
+                    <div class="text-center">
+                        <input type="submit" value="判定する" id="btnUpload" class="btn btn-info btn-lg mb-5">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="top_btn">
+            <input type="button" class="btn btn-secondary mx-auto" onClick="location.href='/'" value="Topに戻る">
+        </div>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../static/javascript/upload.js"></script>
+</body>
+
+</html>
