@@ -43,3 +43,6 @@ tmtagsHistory
 # MyApp
 instance/
 venv/
+user_faces/
+pickle/
+svc_grid.pkl

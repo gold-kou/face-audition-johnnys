@@ -10,20 +10,23 @@ from web.application.models import facedetector_gcv
 import configparser
 import logging
 import logging.config
+import shutil
 
 
 # 外部のコンフィグを読み込む
 inifile = configparser.ConfigParser()
-inifile.read('application/config.ini')
+inifile.read('/home/ec2-user/GitHub/face-audition-johnnys/web/application/config.ini')
 inifile_secret = configparser.ConfigParser()
-inifile_secret.read('instance/config.ini')
+inifile_secret.read('/home/ec2-user/GitHub/face-audition-johnnys/web/instance/config.ini')
 
 # 外部のログコンフィグを読み込む
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig('/home/ec2-user/GitHub/face-audition-johnnys/web/logging.conf')
 logger = logging.getLogger('root')
 
 app = Flask(__name__)
 
+# /resultへのアクセス数
+access_count = 0
 
 @app.route('/')
 def index():
@@ -53,11 +56,15 @@ def face_result():
     :return: result.html
     """
     logging.info('Request to /result')
+    global access_count
+    access_count+=1
+    logging.info('Access count: ' + str(access_count))
 
     # 各種コンフィグ値取得
     cascade = inifile.get('path', 'cascade')
     pickle = inifile.get('path', 'pickle')
     scaler = inifile.get('path', 'scaler')
+    face_dir = inifile.get('path', 'face')
     api_key = inifile_secret.get('gcv', 'api_key')
     max_results = int(inifile.get('gcv', 'face_num'))
     gcv_url = inifile.get('gcv', 'url')
@@ -65,7 +72,8 @@ def face_result():
     no_image_message = inifile.get('error', 'no_image_message')
 
     # 顔抽出画像の保存先。UUIDで重複防止。
-    save_path = '/tmp/' + str(uuid.uuid4()) + 'extracted_face.jpg'
+    file_name = str(uuid.uuid4()) + '_extractedFace.jpg'
+    face_path = face_dir + file_name
 
     # 許可する画像拡張子
     allowed_extension = ['png', 'jpg', 'jpeg']
@@ -90,7 +98,7 @@ def face_result():
                 width = rect[2]
                 height = rect[3]
                 dst = request_img_numpy[y:y + height, x:x + width]
-                cv2.imwrite(save_path, dst)
+                cv2.imwrite(face_path, dst)
                 logging.info('Extracted face image of uploaded file is saved.')
         else:
             logging.error('The GCV could not detect face from the uploaded file.')
@@ -103,7 +111,7 @@ def face_result():
     clf = joblib.load(pickle)
 
     # 顔抽出画像を100×100ピクセルにリサイズ
-    face_img = cv2.imread(save_path)
+    face_img = cv2.imread(face_path)
     resized_img = cv2.resize(face_img, (100, 100))
 
     # NumPy変換
@@ -124,14 +132,14 @@ def face_result():
     if score < -2.5:
         logging.info('The classification is done. Result: 1')
         result = 1
-        return render_template('result.html', face=save_path, result=result, score=score)
+        return render_template('result.html', face=file_name, result=result, score=score)
     # ジャニーズぽいレベルの場合
     elif -2.5 <= score < -1.0:
         logging.info('The classification is done. Result: 2')
         result = 2
-        return render_template('result.html', face=save_path, result=result, score=score)
+        return render_template('result.html', face=file_name, result=result, score=score)
     # ジャニーズ顔でない場合
     else:
         result = 3
         logging.info('The classification is done. Result: 3')
-        return render_template('result.html', face=save_path, result=result, score=score)
+        return render_template('result.html', face=file_name, result=result, score=score)

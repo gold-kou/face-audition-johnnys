@@ -10,12 +10,12 @@
 </head>
 
 <body>
-    <div id="fb-root"></div>
     <main>
-        <h1 class="text-center">判定結果</h1>
+        <h1 class="text-center mt-3">判定結果</h1>
         <p class="lead text-center mb-1">顔面スコア：{{ score }}</p>
-        <p class="text-center">（スコアは値が小さいほどジャニーズ顔であることを示します。）</p>
-        <img src="{{face}}" alt="あなたの顔画像" class="rounded-circle mx-auto d-block face_size"> {% if result == 1 %}
+        <p class="text-center mb-5">（スコアは値が小さいほどジャニーズ顔であることを示します。）</p>
+	<img src="../static/user_faces/{{ face }}" alt="あなたの顔画像" class="rounded-circle mx-auto d-block face_size mb-5">
+        {% if result == 1 %}
         <p class="text-center">あなたの顔はまさにジャニーズ顔です！
             <br> もしかしてジャニーズ事務所に所属していますか？
         </p>
@@ -31,27 +31,22 @@
         <div class="text-center">
             <button type="button" onclick="location.href='/upload'" class="btn btn-primary btn-lg mt-3 mb-5">別の写真で再トライ</button>
         </div>
-        <div id="top_btn">
+        <div class="text-center">
             <input type="button" class="btn btn-secondary mx-auto mb-5" onClick="location.href='/'" value="Topに戻る">
-        </div>
+        <div>
     </main>
     <footer class="sns text-center">
         <ul>
             <li>
-                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="自分の顔がジャニーズ顔かどうかを判定してみよう。登録、ダウンロード一切不要。完全無料。" data-url="" data-lang="ja" data-show-count="false">Tweet</a>
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="自分の顔がジャニーズ顔かどうかを判定してみよう。登録、ダウンロード一切不要。完全無料。" data-url="https://faceaudition.tk" data-lang="ja" data-show-count="false">Tweet</a>
                 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             </li>
             <li>
-                <iframe src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fsample&layout=button_count&size=small&mobile_iframe=true&width=72&height=20&appId" width="72" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media">
-                </iframe>
-            </li>
-            <li>
-                <div class="line-it-button" data-lang="ja" data-type="share-a" data-url="https://sample" style="display: none;">line</div>
+                <div class="line-it-button" data-lang="ja" data-type="share-a" data-url="https://faceaudition.tk" style="display: none;"></div>
                 <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
             </li>
         </ul>
     </footer>
-    <script src="../static/javascript/result.js"></script>
 </body>
 
 </html>

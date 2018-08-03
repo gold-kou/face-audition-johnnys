@@ -6,7 +6,7 @@ import logging.config
 
 
 # 外部のログコンフィグを読み込む
-logging.config.fileConfig('logging.conf')
+logging.config.fileConfig('/home/ec2-user/GitHub/face-audition-johnnys/web/logging.conf')
 logger = logging.getLogger('root')
 
 
@@ -40,3 +40,4 @@ def facedetector_gcv(image, api_key, max_results, gcv_url):
         return True
     else:
         return False
+
