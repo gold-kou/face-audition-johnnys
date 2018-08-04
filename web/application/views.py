@@ -34,7 +34,6 @@ def index():
     /にGETリクエストが来たらindex.htmlを返す関数
     :return: index.html
     """
-    logging.info('Request to /')
     return render_template('index.html')
 
 
