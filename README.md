@@ -1,6 +1,8 @@
 # 概要
 https://faceaudition.tk/
 
+Not Working now.
+
 自分の顔写真をアップロードして、ジャニーズ系かどうかを三段階で判定するサービスです。
 現在、iPhoneは未対応中です。Android端末、Windows端末、macbookで動作確認済み。
 
