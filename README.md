@@ -1,11 +1,22 @@
-# 概要
+# About
 https://faceaudition.tk/
+Sorry. Not Working now because of aws costs. 💦 
 
-Not Working now.
+Johnny's is a very popular idol group in japan.
+You can judge your face looks like them just by uploading a file.
+Very easy!!!
 
-自分の顔写真をアップロードして、ジャニーズ系かどうかを三段階で判定するサービスです。
-現在、iPhoneは未対応中です。Android端末、Windows端末、macbookで動作確認済み。
+available:
 
+- Android
+- Windows
+- Mac
 
-# 詳細
+not available
+
+- iPhone
+
+# Detail
+japanese only
+
 https://qiita.com/gold-kou/items/e1a96657a63b043c4564
